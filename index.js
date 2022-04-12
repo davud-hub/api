@@ -18,8 +18,8 @@ const { response } = require('express')
     },
     {
         name: 'nos',
-        address: 'https://nos.nl/nieuws/economie',
-        base: 'https://nos.nl'
+        address: 'https://www.nos.nl/nieuws/economie',
+        base: 'https://www.nos.nl'
     },
  ]
 
@@ -31,7 +31,8 @@ const { response } = require('express')
             const html = response.data
             const $ = cheerio.load(html)
             $('a:contains("inflatie")', html).each(function () {
-                const title = $(this).text()
+                console.log($(this))
+                const title = $(this).text().replace(/(?:\r\n|\r|\n|\t)/g, "")
                 const url = $(this).attr('href')
 
                 articles.push({
