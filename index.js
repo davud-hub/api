@@ -7,19 +7,19 @@ const { response } = require('express')
 
  const newspapers = [
      {
-         name: 'thetimes',
-         address: 'https://www.nytimes.com/section/climate',
-         base: 'https://www.nytimes.com'
+         name: 'ad',
+         address: 'https://www.ad.nl/economie/',
+         base: ''
      },
      {
-        name: 'guardian',
-        address: 'https://www.theguardian.com/environment/climate-crisis',
-        base: ''
+        name: 'nu',
+        address: 'https://www.nu.nl/economie-achtergrond',
+        base: 'https://www.nu.nl'
     },
     {
-        name: 'telegraph',
-        address: 'https://www.telegraph.co.uk/climate-change/',
-        base: 'https://www.telegraph.co.uk'
+        name: 'nos',
+        address: 'https://nos.nl/nieuws/economie',
+        base: 'https://nos.nl'
     },
  ]
 
@@ -30,7 +30,7 @@ const { response } = require('express')
         .then(response => {
             const html = response.data
             const $ = cheerio.load(html)
-            $('a:contains("climate")', html).each(function () {
+            $('a:contains("inflatie")', html).each(function () {
                 const title = $(this).text()
                 const url = $(this).attr('href')
 
@@ -45,10 +45,10 @@ const { response } = require('express')
  })
 
  app.get('/', (req,res) => {
-    res.json('Welcome to my Climate Change News API')
+    res.json('Welkom')
  })
 
- app.get('/news',(req,res) => {
+ app.get('/economie',(req,res) => {
     res.json(articles)
  })
 
@@ -65,7 +65,7 @@ const { response } = require('express')
             const $ = cheerio.load(html)
             const specificArticles = []
             
-            $('a:contains("climate")', html).each(function() {
+            $('a:contains("inflatie")', html).each(function() {
                 const title = $(this).text()
                 const url = $(this).attr('href')
                 specificArticles.push({
